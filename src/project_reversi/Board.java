@@ -24,6 +24,10 @@ public class Board {
 		
 	}
 	
+	public void makeMove(int x, int y, char player){
+		boardMat.setCoord(x, y, player);
+	}
+	
 	public void printBoard() {
 		for(int i = 0; i < 500; i++) {
 			System.out.println("");
@@ -31,7 +35,7 @@ public class Board {
 		
 		for(int i = 1; i <= 8; i++) {
 			for(int j = 1; j <= 8; j++) {
-				System.out.print(boardMat.getCoord(i, j));
+				System.out.format("%2c", boardMat.getCoord(i, j));
 			}
 			System.out.println("");
 		}
