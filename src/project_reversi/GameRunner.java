@@ -3,12 +3,16 @@ package project_reversi;
 import java.util.Scanner;
 
 public class GameRunner {
-
+	
 	public static void main(String[] args) {
-		Scanner console = new Scanner(System.in);
 		Game board = new Game();
-		char curPlayer = Util.PLAYER1;
+		runGame(board, Util.PLAYER1);
+	}
 
+	public static void runGame(Game board, char firstPlayer) {
+		char curPlayer = firstPlayer;
+		Scanner console = new Scanner(System.in);
+		
 		board.printBoard();
 
 		boolean finished = false;
@@ -22,9 +26,17 @@ public class GameRunner {
 				success = board.makeMove(row, col, curPlayer);
 			}
 			board.printBoard();
+			if(board.getValidMoves().isEmpty()) {
+				board.updateValid(curPlayer);
+				if(board.getValidMoves().isEmpty()) {
+					finished = true;
+				}
+			} else {
+				curPlayer = Util.inversePlayer(curPlayer);
+			}
 			// finished = board.isFinished();
 		}
-		curPlayer = Util.inversePlayer(curPlayer);
+		board.printScore();
 	}
 
 }

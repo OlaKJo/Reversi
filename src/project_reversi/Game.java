@@ -14,6 +14,7 @@ public class Game {
 		boardMat = new GameMatrix();
 		validMoves = new ArrayList<Tuple>();
 		initBoard();
+		updateValid(Util.PLAYER1);
 	}
 	
 	private void initBoard() {
@@ -21,11 +22,12 @@ public class Game {
 		boardMat.setCoord(5, 5, Util.PLAYER1);
 		boardMat.setCoord(4, 5, Util.PLAYER2);
 		boardMat.setCoord(5, 4, Util.PLAYER2);
-		updateValid(Util.PLAYER1);
 	}
 
-	public Game(char[][] boardMat){
-		
+	public Game(char[][] boardMat, char player){
+		this.boardMat = new GameMatrix(boardMat);
+		validMoves = new ArrayList<Tuple>();
+		updateValid(player);
 	}
 	
 	public boolean makeMove(int x, int y, char player){
@@ -85,7 +87,7 @@ public class Game {
 		
 	}
 
-	private void updateValid(char player) {
+	public void updateValid(char player) {
 		validMoves.clear();
 		for(int i = 1; i <= 8; i++) {
 			for(int j = 1; j <= 8; j++) {
@@ -148,6 +150,34 @@ public class Game {
 	
 	public List<Tuple> getValidMoves() {
 		return new ArrayList<Tuple>(validMoves);
+	}
+
+	public void printScore() {
+		int score1 = 0;
+		int score2 = 0;
+		
+		for(int i = 1; i <= 8; i++) {
+			for(int j = 1; j <= 8; j++) {
+				if(boardMat.getCoord(i, j) == Util.PLAYER1) {
+					score1++;
+				} else if(boardMat.getCoord(i, j) == Util.PLAYER2) {
+					score2++;
+				}
+			}
+		}
+		String winnerText;
+		String genericWinner = "The winner is: ";
+		
+		if(score1 > score2) {
+			winnerText = genericWinner + Util.PLAYER1;
+		} else if(score1 < score2) {
+			winnerText = genericWinner + Util.PLAYER2;
+		} else {
+			winnerText = "It's a draw!";
+		}
+		System.out.println(winnerText);
+		System.out.println(Util.PLAYER1 + ": " + score1);
+		System.out.println(Util.PLAYER2 + ": " + score2);
 	}
 
 }

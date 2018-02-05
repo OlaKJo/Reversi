@@ -7,6 +7,10 @@ public class GameMatrix {
 		theMatrix = new char[8][8];
 		initMatrix();
 	}
+	
+	public GameMatrix(char[][] mat) {
+		theMatrix = mat;
+	}
 
 	private void initMatrix() {
 		for(int i = 0; i < 8; i++) {
