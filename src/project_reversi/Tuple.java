@@ -17,4 +17,15 @@ public class Tuple {
 	public int getY(){
 		return y;
 	}
+	
+	@Override public boolean equals(Object obj) {
+		if(obj instanceof Tuple) {
+			return( x == ((Tuple) obj).x && y == ((Tuple) obj).y);
+		}
+		return false;
+	}
+	
+	public String toString() {
+		return "(" + x + ", " + y + ")";
+	}
 }
