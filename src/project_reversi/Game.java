@@ -7,12 +7,15 @@ import java.util.TreeSet;
 
 public class Game {
 	
-	private List<Tuple> validMoves;
+	private List<Tuple> player1ValidMoves;
+	private List<Tuple> player2ValidMoves;
+
 	private GameMatrix boardMat;
 	
 	public Game(){
 		boardMat = new GameMatrix();
-		validMoves = new ArrayList<Tuple>();
+		player1ValidMoves = new ArrayList<Tuple>();
+		player2ValidMoves = new ArrayList<Tuple>();
 		initBoard();
 		updateValid(Util.PLAYER1);
 	}
@@ -26,15 +29,26 @@ public class Game {
 
 	public Game(char[][] boardMat, char player){
 		this.boardMat = new GameMatrix(boardMat);
-		validMoves = new ArrayList<Tuple>();
+		player1ValidMoves = new ArrayList<Tuple>();
+		player2ValidMoves = new ArrayList<Tuple>();
+		updateValid(player);
+	}
+	
+	public Game(Game g, char player) {
+		this.boardMat = g.boardMat;
+		player1ValidMoves = g.player1ValidMoves;
+		player2ValidMoves = g.player2ValidMoves;
 		updateValid(player);
 	}
 	
 	public boolean makeMove(int x, int y, char player){
+		List<Tuple> validMoves = (player == Util.PLAYER1 ? player1ValidMoves : player2ValidMoves);
+		
 		if(validMoves.contains(new Tuple(x,y))) {
 			boardMat.setCoord(x, y, player);
 			flipMarkers(x, y, player);
-			updateValid(Util.inversePlayer(player));			
+			updateValid(Util.inversePlayer(player));
+			updateValid(player);
 			
 			return true;
 		} else {
@@ -88,6 +102,8 @@ public class Game {
 	}
 
 	public void updateValid(char player) {
+		List<Tuple> validMoves = (player == Util.PLAYER1 ? player1ValidMoves : player2ValidMoves);
+
 		validMoves.clear();
 		for(int i = 1; i <= 8; i++) {
 			for(int j = 1; j <= 8; j++) {
@@ -131,7 +147,9 @@ public class Game {
 		}
 	}
 
-	public void printBoard() {
+	public void printBoard(char player) {
+		List<Tuple> validMoves = (player == Util.PLAYER1 ? player1ValidMoves : player2ValidMoves);
+
 		for(int i = 0; i < 500; i++) {
 			System.out.println("");
 		}
@@ -148,11 +166,13 @@ public class Game {
 		}
 	}
 	
-	public List<Tuple> getValidMoves() {
+	public List<Tuple> getValidMoves(char player) {
+		List<Tuple> validMoves = (player == Util.PLAYER1 ? player1ValidMoves : player2ValidMoves);
+
 		return new ArrayList<Tuple>(validMoves);
 	}
-
-	public void printScore() {
+	
+	public Tuple calculateScore() {
 		int score1 = 0;
 		int score2 = 0;
 		
@@ -165,6 +185,16 @@ public class Game {
 				}
 			}
 		}
+		return new Tuple(score1, score2);
+	}
+
+	public void printScore() {
+		
+		Tuple scores = calculateScore();
+		
+		int score1 = scores.getX();
+		int score2 = scores.getY();
+
 		String winnerText;
 		String genericWinner = "The winner is: ";
 		
@@ -178,6 +208,10 @@ public class Game {
 		System.out.println(winnerText);
 		System.out.println(Util.PLAYER1 + ": " + score1);
 		System.out.println(Util.PLAYER2 + ": " + score2);
+	}
+
+	public char[][] getBoard() {
+		return boardMat.getBoard();
 	}
 
 }

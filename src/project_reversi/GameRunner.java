@@ -13,7 +13,7 @@ public class GameRunner {
 		char curPlayer = firstPlayer;
 		Scanner console = new Scanner(System.in);
 		
-		board.printBoard();
+		board.printBoard(curPlayer);
 
 		boolean finished = false;
 		while (!finished) {
@@ -25,10 +25,11 @@ public class GameRunner {
 				int col = (int) (move.charAt(1) - '0');
 				success = board.makeMove(row, col, curPlayer);
 			}
-			board.printBoard();
-			if(board.getValidMoves().isEmpty()) {
+			board.printBoard(curPlayer);
+			if(board.getValidMoves(curPlayer).isEmpty()) {
 				board.updateValid(curPlayer);
-				if(board.getValidMoves().isEmpty()) {
+				board.updateValid(Util.inversePlayer(curPlayer));
+				if(board.getValidMoves(Util.inversePlayer(curPlayer)).isEmpty()) {
 					finished = true;
 				}
 			} else {

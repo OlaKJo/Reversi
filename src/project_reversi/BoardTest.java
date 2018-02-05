@@ -16,7 +16,7 @@ class BoardTest {
 	@Test
 	void testPrintUpdateValid() {
 		Game b = new Game();
-		b.printBoard();
+		b.printBoard(Util.PLAYER1);
 	}
 	
 	@Test
@@ -28,13 +28,13 @@ class BoardTest {
 		testList.add(new Tuple(3,5));
 		testList.add(new Tuple(4,6));
 		
-		System.out.println(b.getValidMoves());
+		System.out.println(b.getValidMoves(Util.PLAYER1));
 		System.out.println(testList);
 		
 		for(Tuple t : testList) {
-			assert(b.getValidMoves().contains(t));
+			assert(b.getValidMoves(Util.PLAYER1).contains(t));
 		}		
-		assertEquals(b.getValidMoves().size(), testList.size());
+		assertEquals(b.getValidMoves(Util.PLAYER1).size(), testList.size());
 	}
 	
 
@@ -42,7 +42,7 @@ class BoardTest {
 	void testListContains() {
 		Game b = new Game();
 				
-		assert(b.getValidMoves().contains(new Tuple(3,5)));
+		assert(b.getValidMoves(Util.PLAYER1).contains(new Tuple(3,5)));
 	}
 	
 	private void setUpFullBoard() {
