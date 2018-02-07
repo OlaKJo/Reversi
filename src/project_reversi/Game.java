@@ -9,6 +9,7 @@ public class Game {
 	
 	private List<Tuple> player1ValidMoves;
 	private List<Tuple> player2ValidMoves;
+	private int skipLines = 500;
 
 	private GameMatrix boardMat;
 	
@@ -150,11 +151,20 @@ public class Game {
 	public void printBoard(char player) {
 		List<Tuple> validMoves = (player == Util.PLAYER1 ? player1ValidMoves : player2ValidMoves);
 
-		for(int i = 0; i < 500; i++) {
+		for(int i = 0; i < skipLines; i++) {
 			System.out.println("");
 		}
+		//Print column names
+		System.out.printf("%2c", ' ');
+		for(char c = 'A'; c <= 'H'; c++) {
+			System.out.format("%2c", c);
+		}
+		System.out.println("");
 		
+		//Print Board
 		for(int i = 1; i <= 8; i++) {
+			//Print row number
+			System.out.printf("%2d", i);
 			for(int j = 1; j <= 8; j++) {
 				char printChar = boardMat.getCoord(i, j);
 				if(validMoves.contains(new Tuple(i, j))) {
@@ -212,6 +222,10 @@ public class Game {
 
 	public char[][] getBoard() {
 		return boardMat.getBoard();
+	}
+	
+	public GameMatrix getGameMatrix() {
+		return boardMat;
 	}
 
 }

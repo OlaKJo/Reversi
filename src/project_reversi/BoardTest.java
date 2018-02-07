@@ -1,26 +1,25 @@
 package project_reversi;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
-import org.junit.jupiter.api.Test;
+import org.junit.*;
 
-class BoardTest {
+public class BoardTest {
 
 	private Game testGame;
 	
 	@Test
-	void testPrintUpdateValid() {
+	public void testPrintUpdateValid() {
 		Game b = new Game();
 		b.printBoard(Util.PLAYER1);
 	}
 	
 	@Test
-	void testInitialUpdateValid() {
+	public void testInitialUpdateValid() {
 		Game b = new Game();
 		List<Tuple> testList = new ArrayList<Tuple>();
 		testList.add(new Tuple(5,3));
@@ -39,7 +38,7 @@ class BoardTest {
 	
 
 	@Test
-	void testListContains() {
+	public void testListContains() {
 		Game b = new Game();
 				
 		assert(b.getValidMoves(Util.PLAYER1).contains(new Tuple(3,5)));
@@ -85,20 +84,20 @@ class BoardTest {
 	}
 	
 	@Test
-	void testFullBoard() {
+	public void testFullBoard() {
 		setUpFullBoard();
 		GameRunner.runGame(testGame, Util.PLAYER1);
 	}
 	
 	@Test
-	 void testPartialBoard() {
+	 public void testPartialBoard() {
 		setUpBoard1();
 		GameRunner.runGame(testGame, Util.PLAYER2);
 
 	}
 	
 	@Test
-	 void testLockedBoard() {
+	 public void testLockedBoard() {
 		setUpLockedBoard();
 		GameRunner.runGame(testGame, Util.PLAYER2);
 

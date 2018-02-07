@@ -1,13 +1,13 @@
 package project_reversi;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-class TupleTest {
+public class TupleTest {
 
 	@Test
-	void testEqual() {
+	public void testEqual() {
 		Tuple t1 = new Tuple(1,1);
 		Tuple t2 = new Tuple(1,1);
 		assertEquals(t1, t2);
