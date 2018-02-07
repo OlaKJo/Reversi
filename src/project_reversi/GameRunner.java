@@ -1,3 +1,10 @@
+
+//compile from /h/dk/x/jur10ojo/edaf70/reversi
+//javac -d bin/ -cp junit.jar:. src/project_reversi/*.java
+
+//run from /h/dk/x/jur10ojo/edaf70/reversi
+//java -cp bin/ project_reversi.GameRunner
+
 package project_reversi;
 
 import java.util.Scanner;
