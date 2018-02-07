@@ -1,5 +1,4 @@
-package project_reversi;
-
+package testReversi;
 
 import static org.junit.Assert.*;
 
@@ -7,6 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.*;
+
+import project_reversi.Game;
+import project_reversi.GameRunner;
+import project_reversi.Tuple;
+import project_reversi.Util;
 
 public class BoardTest {
 

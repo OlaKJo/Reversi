@@ -1,8 +1,10 @@
-package project_reversi;
+package testReversi;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import project_reversi.Tuple;
 
 public class TupleTest {
 
